@@ -1,39 +1,76 @@
-import Link from "next/link"
-
-import { siteConfig } from "@/config/site"
-import { buttonVariants } from "@/components/ui/button"
+'use client'
+import { useAuth } from "@clerk/nextjs";
+import { Icons } from "@/components/icons";
+import { siteConfig } from "@/config/site";
+import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
+import { is } from "date-fns/locale";
 
 export default function IndexPage() {
+
+  const {isSignedIn} = useAuth();
+
+  const DynamicButton = () => {
+    if (isSignedIn) {
+      return (
+        <Link href="/dashboard">
+          <button className={`${buttonVariants({ variant: "default" })} mt-10  p-4`}>
+            Dashboard
+          </button>
+        </Link>
+      );
+    } else {
+      return (
+        <Link href="/sign-in">
+          <button className={`${buttonVariants({ variant: "default" })} mt-10  p-4`}>
+            Get started
+          </button>
+        </Link>
+      );
+    }
+  }
+
   return (
-    <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
-      <div className="flex max-w-[980px] flex-col items-start gap-2">
-        <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
-          Beautifully designed components <br className="hidden sm:inline" />
-          built with Radix UI and Tailwind CSS.
+    <>
+      <section className="flex container mx-auto w-full h-[90vh] items-center justify-center text-center  md:py-10 flex-col">
+        <h1 className="font-extrabold text-transparent text-5xl md:text-8xl bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">
+          Empower Your Business with QR Pro
         </h1>
-        <p className="max-w-[700px] text-lg text-muted-foreground">
-          Accessible and customizable components that you can copy and paste
-          into your apps. Free. Open Source. And Next.js 13 Ready.
+        <p className="text-xl text-muted-foreground mt-10 border border-dashed p-5 rounded-md">
+          Say goodbye to static QR codes! Generate{" "}
+          <span className="font-bold">dynamic</span> QR codes that can be
+          updated without having to reprint them. This means that you can always
+          keep your QR codes <span className="font-bold">up-to-date</span> with
+          the latest information.
         </p>
-      </div>
-      <div className="flex gap-4">
-        <Link
-          href={siteConfig.links.docs}
-          target="_blank"
-          rel="noreferrer"
-          className={buttonVariants()}
-        >
-          Documentation
-        </Link>
-        <Link
-          target="_blank"
-          rel="noreferrer"
-          href={siteConfig.links.github}
-          className={buttonVariants({ variant: "outline" })}
-        >
-          GitHub
-        </Link>
-      </div>
-    </section>
-  )
+ 
+        <DynamicButton />
+       
+        
+     
+      </section>
+
+      <section className="flex flex-col items-center justify-center h-[90vh] md:py-10 text-center w-full">
+        <h1 className="font-bold text-3xl">What&apos;s in QR Pro?</h1>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-center justify-center mt-5">
+          <div className="h-56 w-64 border border-dashed rounded-md flex flex-col align-middle justify-evenly hover:scale-105 duration-200 ease-out">
+            <h1 className="font-bold mt-5">Dynamic QR Code</h1>
+            <p>Generate and update QR codes in real-time.</p>
+          </div>
+          <div className="h-56 w-64 border border-dashed rounded-md flex flex-col align-middle justify-evenly hover:scale-105 duration-200 ease-out">
+            <h1 className="font-bold mt-5">Track QR Code Openings</h1>
+            <p>Monitor and analyze QR code scans.</p>
+          </div>
+          <div className="h-56 w-64 border border-dashed rounded-md flex flex-col align-middle justify-evenly hover:scale-105 duration-200 ease-out">
+            <h1 className="font-bold mt-5">Edit Your QR Code</h1>
+            <p>Modify your QR code without reprinting it.</p>
+          </div>
+        </div>
+ 
+        <DynamicButton />
+       
+      </section>
+    </>
+  );
 }
