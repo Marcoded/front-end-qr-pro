@@ -1,3 +1,7 @@
+"use client"
+
+import { useAuth } from "@clerk/nextjs";
+
 import Link from "next/link";
 
 import { siteConfig } from "@/config/site";
@@ -6,9 +10,11 @@ import { Icons } from "@/components/icons";
 import { MainNav } from "@/components/main-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { UserButton } from "@clerk/nextjs";
-
+import { SignInButton } from "@clerk/nextjs";
 
 export function SiteHeader() {
+  const { isSignedIn } = useAuth();
+
   return (
     <header className="bg-background sticky top-0 z-40 w-full border-b">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -30,9 +36,11 @@ export function SiteHeader() {
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>
-            
+
             <ThemeToggle />
-            <UserButton/>
+            {!isSignedIn && <SignInButton/>}
+
+            <UserButton />
           </nav>
         </div>
       </div>

@@ -38,6 +38,9 @@ export default function DashBoard() {
     fetchUsage();
   }, []);
 
+
+ 
+
   return (
     <div className="container mx-auto py-10">
       {usage && usage.QrLeft != null && usage.limit != null ? (

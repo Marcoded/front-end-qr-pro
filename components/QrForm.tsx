@@ -126,6 +126,7 @@ export const QrForm: React.FC<QrFormProps> = ({
       }
 
       fetchUserQrCodes();
+      fetchUsage()
 
       toast({
         title: "Success",
@@ -200,6 +201,8 @@ export const QrForm: React.FC<QrFormProps> = ({
       const response = await axiosInstance.get(
         `/api/v1/qr_codes/${qrCodeIdFromProps}`
       );
+      console.log("Data from initial qr fetch")
+      console.table(response.data);
       const data: QrCodeFromServer = response.data;
       const { id, title, target_url, qr_code_data, main_color } = data;
 
@@ -209,7 +212,7 @@ export const QrForm: React.FC<QrFormProps> = ({
         title,
         targetUrl: target_url,
         qr_code_data,
-        main_color: main_color || "black",
+        mainColor: main_color ,
       }));
     } catch {
       toast({
@@ -237,22 +240,29 @@ export const QrForm: React.FC<QrFormProps> = ({
 
   const renderTriggerContent = () => {
     if (!usage?.canCreate && mode === "create") {
-      return <Button className="bg-slate-600 hover:bg-slate-500" onClick={toastLimitReached}> {facadeText}</Button>;
+      return (
+        <Button
+          className="bg-slate-600 hover:bg-slate-500"
+          onClick={toastLimitReached}
+        >
+          {" "}
+          {facadeText}
+        </Button>
+      );
     }
 
     if (styling === "none") {
       return (
         <DialogTrigger>
-          <Button> {facadeText}</Button>
+          {/* Can create new qr as usage is not full */}
+          <Button>{facadeText}</Button>
         </DialogTrigger>
       );
     }
 
     return (
-      <DialogTrigger className="w-full hover:text-white">
-        <p className=" relative flex cursor-default select-none items-center rounded px-2 py-1.5 text-sm outline-none hover:bg-accent ease-in-out ">
-          {facadeText}
-        </p>
+      <DialogTrigger className="w-full hover:text-white relative flex cursor-default select-none items-center rounded px-2 py-1.5 text-sm outline-none hover:bg-accent ease-in-out">
+        {facadeText} 
       </DialogTrigger>
     );
   };
@@ -260,8 +270,7 @@ export const QrForm: React.FC<QrFormProps> = ({
   useEffect(() => {
     fetchInitialData();
     fetchUsage();
-    renderTriggerContent();
-  }, [qrCodeState]);
+  }, []);
 
   useEffect(() => {
     const isValidUrl = urlValidator(qrCodeState.targetUrl);

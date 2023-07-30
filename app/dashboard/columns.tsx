@@ -114,6 +114,7 @@ export const columns: ColumnDef<Qrcode>[] = [
               facadeText="Edit Qr code"
               qrCodeIdFromProps={qrcode.id}
               styling="dropdownElement"
+              
             />
            
           
