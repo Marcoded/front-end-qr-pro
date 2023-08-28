@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useAuth } from "@clerk/nextjs";
 
@@ -16,7 +16,7 @@ export function SiteHeader() {
   const { isSignedIn } = useAuth();
 
   return (
-    <header className="bg-background sticky top-0 z-40 w-full border-b">
+    <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <MainNav items={siteConfig.mainNav} />
         <div className="flex flex-1 items-center justify-end space-x-4">
@@ -38,7 +38,11 @@ export function SiteHeader() {
             </Link>
 
             <ThemeToggle />
-            {!isSignedIn && <SignInButton/>}
+            {!isSignedIn && (
+              <SignInButton>
+                <button className="text-xs md:text-sm">Michel</button>
+              </SignInButton>
+            )}
 
             <UserButton />
           </nav>

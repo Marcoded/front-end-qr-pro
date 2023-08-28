@@ -287,9 +287,9 @@ export const QrForm: React.FC<QrFormProps> = ({
       <DialogContent className="">
         <CardHeader>
           {mode === "create" && (
-            <CardTitle>new form - Create a new QR Code</CardTitle>
+            <CardTitle>Generate a QR Code</CardTitle>
           )}
-          {mode === "edit" && <CardTitle> new form - Edit a QR Code</CardTitle>}
+          {mode === "edit" && <CardTitle>Edit a QR Code</CardTitle>}
 
           {mode === "create" && (
             <CardDescription>

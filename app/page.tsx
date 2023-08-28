@@ -1,11 +1,7 @@
 'use client'
 import { useAuth } from "@clerk/nextjs";
-import { Icons } from "@/components/icons";
-import { siteConfig } from "@/config/site";
-import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
-import { is } from "date-fns/locale";
 
 export default function IndexPage() {
 
@@ -33,8 +29,8 @@ export default function IndexPage() {
 
   return (
     <>
-      <section className="flex container mx-auto w-full h-[90vh] items-center justify-center text-center  md:py-10 flex-col">
-        <h1 className="font-extrabold text-transparent text-5xl md:text-8xl bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">
+      <section className="flex container mx-auto w-[55rem] h-[90vh] items-center justify-center text-center [text-wrap:balance]  md:py-10 flex-col">
+        <h1 className="font-extrabold text-transparent text-3xl md:text-6xl bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">
           Empower Your Business with QR Pro
         </h1>
         <p className="text-xl text-muted-foreground mt-10 border border-dashed p-5 rounded-md">
@@ -54,15 +50,15 @@ export default function IndexPage() {
       <section className="flex flex-col items-center justify-center h-[90vh] md:py-10 text-center w-full">
         <h1 className="font-bold text-3xl">What&apos;s in QR Pro?</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-center justify-center mt-5">
-          <div className="h-56 w-64 border border-dashed rounded-md flex flex-col align-middle justify-evenly hover:scale-105 duration-200 ease-out">
+          <div className="h-56 w-64  border-dashed border-2 rounded-md flex flex-col align-middle justify-evenly hover:scale-105 duration-200 ease-out">
             <h1 className="font-bold mt-5">Dynamic QR Code</h1>
             <p>Generate and update QR codes in real-time.</p>
           </div>
-          <div className="h-56 w-64 border border-dashed rounded-md flex flex-col align-middle justify-evenly hover:scale-105 duration-200 ease-out">
+          <div className="h-56 w-64  border-dashed border-2 rounded-md flex flex-col align-middle justify-evenly hover:scale-105 duration-200 ease-out">
             <h1 className="font-bold mt-5">Track QR Code Openings</h1>
             <p>Monitor and analyze QR code scans.</p>
           </div>
-          <div className="h-56 w-64 border border-dashed rounded-md flex flex-col align-middle justify-evenly hover:scale-105 duration-200 ease-out">
+          <div className="h-56 w-64  border-dashed border-2 rounded-md flex flex-col align-middle justify-evenly hover:scale-105 duration-200 ease-out">
             <h1 className="font-bold mt-5">Edit Your QR Code</h1>
             <p>Modify your QR code without reprinting it.</p>
           </div>

@@ -21,7 +21,7 @@ export function MainNav({ items }: MainNavProps) {
         </span>
       </Link>
       {items?.length ? (
-        <nav className="flex gap-6">
+        <nav className="flex gap-6 text-xs md:text-sm">
           {items?.map(
             (item, index) =>
               item.href && (
@@ -29,7 +29,7 @@ export function MainNav({ items }: MainNavProps) {
                   key={index}
                   href={item.href}
                   className={cn(
-                    "flex items-center text-sm font-medium text-muted-foreground",
+                    "flex items-center font-medium text-muted-foreground text-xs md:text-sm",
                     item.disabled && "cursor-not-allowed opacity-80"
                   )}
                 >
