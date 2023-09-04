@@ -4,6 +4,7 @@ import {
   SunMedium,
   Twitter,
   QrCode,
+  User,
   type Icon as LucideIcon,
 } from "lucide-react";
 
@@ -12,6 +13,7 @@ export type Icon = LucideIcon;
 export const Icons = {
   sun: SunMedium,
   moon: Moon,
+  user: User,
   twitter: Twitter,
   logo: (props: LucideProps) => (
     <svg

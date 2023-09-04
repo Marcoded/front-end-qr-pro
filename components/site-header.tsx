@@ -2,7 +2,9 @@
 
 import { useAuth } from "@clerk/nextjs";
 
+
 import Link from "next/link";
+import { User } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
 import { buttonVariants } from "@/components/ui/button";
@@ -40,7 +42,10 @@ export function SiteHeader() {
             <ThemeToggle />
             {!isSignedIn && (
               <SignInButton>
-                <button className="text-xs md:text-sm">Michel</button>
+                {/* <button className="text-xs md:text-sm">Michel</button> */}
+
+                <User className ="cursor-pointer hover:scale-125 transition-all ease-in-out duration-150"  />
+         
               </SignInButton>
             )}
 
