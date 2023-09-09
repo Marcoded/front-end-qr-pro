@@ -11,6 +11,7 @@ import { MainNav } from "@/components/main-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { UserButton } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
+import { User } from 'lucide-react';
 
 export function SiteHeader() {
   const { isSignedIn } = useAuth();
@@ -39,9 +40,12 @@ export function SiteHeader() {
 
             <ThemeToggle />
             {!isSignedIn && (
+
               <SignInButton>
-                <button className="text-xs md:text-sm">Michel</button>
+                <button>Register</button>
               </SignInButton>
+                
+             
             )}
 
             <UserButton />
