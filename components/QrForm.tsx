@@ -1,23 +1,26 @@
 "use client";
 
+import { QrCodeContext } from "@/app/context/qrCodeContext";
 import { Button } from "@/components/ui/button";
 import { useContext } from "react";
-import { QrCodeContext } from "@/app/context/qrCodeContext";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import * as React from "react";
-import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import fileDownload from "js-file-download";
 import { useRouter } from "next/navigation";
+import * as React from "react";
+import { useEffect } from "react";
 
-import { HexColorPicker, HexColorInput } from "react-colorful";
-import urlValidator from "@/lib/urlValidator";
 import CustomAxios from "@/lib/customAxios";
+import urlValidator from "@/lib/urlValidator";
 import { QRCodeCanvas } from "qrcode.react";
+import { HexColorInput, HexColorPicker } from "react-colorful";
+import ContrastInfo from "./contrastInfo";
+
+import chroma from "chroma-js";
 
 import { Switch } from "@/components/ui/switch";
 
@@ -54,6 +57,7 @@ interface QrCodeFromServer {
 interface QrFormProps {
   mode: "create" | "edit";
   styling: "none" | "dropdownElement";
+
   facadeText: string;
   qrCodeIdFromProps?: string;
 }
@@ -126,7 +130,7 @@ export const QrForm: React.FC<QrFormProps> = ({
       }
 
       fetchUserQrCodes();
-      fetchUsage()
+      fetchUsage();
 
       toast({
         title: "Success",
@@ -201,7 +205,7 @@ export const QrForm: React.FC<QrFormProps> = ({
       const response = await axiosInstance.get(
         `/api/v1/qr_codes/${qrCodeIdFromProps}`
       );
-      console.log("Data from initial qr fetch")
+      console.log("Data from initial qr fetch");
       console.table(response.data);
       const data: QrCodeFromServer = response.data;
       const { id, title, target_url, qr_code_data, main_color } = data;
@@ -212,7 +216,7 @@ export const QrForm: React.FC<QrFormProps> = ({
         title,
         targetUrl: target_url,
         qr_code_data,
-        mainColor: main_color ,
+        mainColor: main_color,
       }));
     } catch {
       toast({
@@ -224,6 +228,7 @@ export const QrForm: React.FC<QrFormProps> = ({
   };
 
   const handleColorChange = (color: string) => {
+    //computeContrast();
     setQrCodeState((prevState) => ({
       ...prevState,
       mainColor: color,
@@ -242,7 +247,7 @@ export const QrForm: React.FC<QrFormProps> = ({
     if (!usage?.canCreate && mode === "create") {
       return (
         <Button
-          className="bg-slate-600 hover:bg-slate-500"
+          className="cursor-pointer bg-slate-600 hover:bg-slate-500"
           onClick={toastLimitReached}
         >
           {" "}
@@ -255,14 +260,14 @@ export const QrForm: React.FC<QrFormProps> = ({
       return (
         <DialogTrigger>
           {/* Can create new qr as usage is not full */}
-          <Button>{facadeText}</Button>
+          <Button className="cursor-pointer">{facadeText}</Button>
         </DialogTrigger>
       );
     }
 
     return (
-      <DialogTrigger className="w-full hover:text-white relative flex cursor-default select-none items-center rounded px-2 py-1.5 text-sm outline-none hover:bg-accent ease-in-out">
-        {facadeText} 
+      <DialogTrigger className="relative flex w-full cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm outline-none ease-in-out hover:bg-accent ">
+        {facadeText}
       </DialogTrigger>
     );
   };
@@ -286,9 +291,7 @@ export const QrForm: React.FC<QrFormProps> = ({
 
       <DialogContent className="">
         <CardHeader>
-          {mode === "create" && (
-            <CardTitle>Generate a QR Code</CardTitle>
-          )}
+          {mode === "create" && <CardTitle>Generate a QR Code</CardTitle>}
           {mode === "edit" && <CardTitle>Edit a QR Code</CardTitle>}
 
           {mode === "create" && (
@@ -336,13 +339,15 @@ export const QrForm: React.FC<QrFormProps> = ({
                         style={{ backgroundColor: qrCodeState.mainColor }}
                       />
                     </PopoverTrigger>
-                    <PopoverContent className="flex flex-col">
+                    <PopoverContent className="flex flex-col gap-5">
                       <HexColorPicker
-                        className="w-full "
+                        className="mx-auto w-full   "
                         color={qrCodeState.mainColor}
                         onChange={handleColorChange}
                       />
-                      <HexColorInput className="w-full" />
+                   
+                        <ContrastInfo  color={qrCodeState.mainColor} />
+                      
                     </PopoverContent>
                   </Popover>
                 </div>

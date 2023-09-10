@@ -64,7 +64,7 @@ export const columns: ColumnDef<Qrcode>[] = [
     },
     cell: ({ row }) => {
       const date = parseISO(row.getValue("created_at"));
-      const formattedDate = format(date, "dd.MM.yyyy HH:mm");
+      const formattedDate = format(date, "d MMMM yyyy - hh:m");
       return <div>{formattedDate}</div>;
     },
   },
@@ -83,7 +83,7 @@ export const columns: ColumnDef<Qrcode>[] = [
     },
     cell: ({ row }) => {
       const date = parseISO(row.getValue("updated_at"));
-      const formattedDate = format(date, "dd.MM.yyyy - HH:mm");
+      const formattedDate = format(date, "d MMMM yyyy hh-m");
       return <div>{formattedDate}</div>;
     },
   },
@@ -107,17 +107,15 @@ export const columns: ColumnDef<Qrcode>[] = [
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
-
-         
+        
             <QrForm
               mode="edit"
               facadeText="Edit Qr code"
               qrCodeIdFromProps={qrcode.id}
               styling="dropdownElement"
-              
             />
-           
-          
+   
+
             <DropdownMenuSeparator />
 
             <DropdownMenuItem>

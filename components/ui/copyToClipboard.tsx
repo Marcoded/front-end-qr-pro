@@ -24,7 +24,7 @@ const CopyUrlToClipboard = ({ text }: { text: string }) => {
     };
   
     return (
-      <div onClick={copyToClipboard}>
+      <div className="cursor-pointer" onClick={copyToClipboard}>
         Copy Url
       </div>
     );
